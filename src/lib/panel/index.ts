@@ -13,6 +13,7 @@ import Collection from './components/areas/collection/Collection.svelte';
 import Doc from './components/areas/document/Document.svelte';
 import type { Snippet } from 'svelte';
 import type { GenericDoc, GetRegisterType } from 'rizom/types/doc';
+import { Field } from './components/fields/index.js';
 
 export {
 	Global,
@@ -27,7 +28,8 @@ export {
 	ResetPassword,
 	Dashboard,
 	Collection,
-	Doc
+	Doc,
+	Field
 };
 
 export type CollectionLayoutProps = {

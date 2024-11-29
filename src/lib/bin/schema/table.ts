@@ -33,6 +33,7 @@ import {
 	templateToggleField
 } from './templates.js';
 import type { LocaleConfig } from 'rizom/types/config.js';
+import type { PluginField } from 'rizom/types/plugin.js';
 // import logger from 'rizom/logger/index.js';
 const p = toPascalCase;
 
@@ -45,6 +46,7 @@ type BuildTableArgs = {
 	relationFieldsDic?: Record<string, any>;
 	relationsDic?: Record<string, string[]>;
 	hasAuth?: boolean;
+	fieldsMap: Record<string, Omit<PluginField, 'type'>>;
 };
 
 type BuildTableReturn = {
@@ -91,7 +93,6 @@ const buildTable = ({
 	};
 
 	const traverseFields = (fields: AnyField[], withLocalized?: boolean): string[] => {
-		// Change here
 		let returningFields: string[] = [];
 
 		const checkLocalized = (config: AnyFormField) => {
@@ -184,7 +185,8 @@ const buildTable = ({
 							relationsDic,
 							relationFieldsDic,
 							locales,
-							rootName
+							rootName,
+							fieldsMap
 						});
 						relationsDic = nestedRelationsDic;
 						relationFieldsDic = nestedRelationFieldsDic;
@@ -192,11 +194,10 @@ const buildTable = ({
 						blocksTables.push(blockTable);
 					}
 				}
-			} else if (isFormField(field) && field.type in fieldsMap) {
+			} else if (field.type in fieldsMap) {
 				if (checkLocalized(field)) {
 					returningFields.push(fieldsMap[field.type].templates.schema(field) + ',');
 				}
-				// It's a user defined field type :
 			}
 		}
 		return returningFields;
