@@ -38,6 +38,8 @@ export interface BaseRegister {
 	CollectionSlug: string;
 	GlobalSlug: string;
 	Plugins: object;
+	FieldsType: string;
+	AnyFormField: any;
 }
 
 export type GetRegisterType<K extends keyof BaseRegister> = import('../index.js').Register[K];

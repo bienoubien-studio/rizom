@@ -26,7 +26,8 @@ const generateSchema = (config: BuiltConfig) => {
 			rootName: tableName,
 			locales: config.localization?.locales || [],
 			hasAuth: !!collection.auth,
-			tableName
+			tableName,
+			fieldsMap: config.fieldsMap
 		});
 
 		const { fieldsRelationContent, tableName: fieldsRelationsTableName } = buildFieldsRelations(

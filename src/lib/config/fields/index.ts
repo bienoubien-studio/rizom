@@ -55,7 +55,7 @@ export class FieldBuilder<T extends AnyField> {
 	}
 }
 
-class FormFieldBuilder<T extends AnyFormField> extends FieldBuilder<T> {
+export class FormFieldBuilder<T extends AnyFormField> extends FieldBuilder<T> {
 	//
 	constructor(name: string, type: FieldsType) {
 		super(type);

@@ -62,7 +62,8 @@ const buildTable = ({
 	locales,
 	relationFieldsDic = {},
 	relationsDic = {},
-	hasAuth
+	hasAuth,
+	fieldsMap
 }: BuildTableArgs): BuildTableReturn => {
 	const registeredBlocks: string[] = [];
 	const blocksTables: string[] = [];
@@ -191,6 +192,11 @@ const buildTable = ({
 						blocksTables.push(blockTable);
 					}
 				}
+			} else if (isFormField(field) && field.type in fieldsMap) {
+				if (checkLocalized(field)) {
+					returningFields.push(fieldsMap[field.type].templates.schema(field) + ',');
+				}
+				// It's a user defined field type :
 			}
 		}
 		return returningFields;

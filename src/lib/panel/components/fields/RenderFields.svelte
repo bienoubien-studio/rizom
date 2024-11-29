@@ -7,6 +7,7 @@
 	import { getUserContext } from '$lib/panel/context/user.svelte';
 	import type { AnyField, AnyFormField, FieldsType } from 'rizom/types/fields.js';
 	import RenderFields from './RenderFields.svelte';
+	import { getConfigContext } from 'rizom/panel/context/config.svelte.js';
 
 	type Props = {
 		path?: string;
@@ -18,8 +19,12 @@
 	const { form, fields, path: initialPath = '', framed = false }: Props = $props();
 
 	const user = getUserContext();
+	const config = getConfigContext();
 
 	const fieldComponent = (type: FieldsType): any => {
+		if (type in config.config.fieldsMap) {
+			return config.config.fieldsMap[type].component;
+		}
 		const key = toPascalCase(type) as FieldsComponents;
 		return Fields[key];
 	};

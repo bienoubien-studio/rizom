@@ -65,12 +65,25 @@ const buildConfig = async (config: Config): Promise<BuiltConfig> => {
 		},
 		collections,
 		plugins: {},
+		fieldsMap: {},
 		globals,
 		icons
 	};
 
 	if (config.plugins) {
 		for (const plugin of config.plugins) {
+			if ('fields' in plugin && Array.isArray(plugin.fields)) {
+				const fieldsMap = Object.fromEntries(
+					plugin.fields.map((field) => [
+						field.type,
+						{
+							component: field.component,
+							templates: field.templates
+						}
+					])
+				);
+				builtConfig.fieldsMap = { ...builtConfig.fieldsMap, ...fieldsMap };
+			}
 			if ('configure' in plugin) {
 				builtConfig = plugin.configure!(builtConfig);
 			}

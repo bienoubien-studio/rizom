@@ -190,6 +190,7 @@ export type ComponentField = BaseField & {
 };
 
 export type AnyFormField =
+	| GetRegisterType<'AnyFormField'>
 	| BlocksField
 	| CheckboxField
 	| ComboBoxField
@@ -208,6 +209,7 @@ export type AnyFormField =
 export type AnyField = AnyFormField | ComponentField | SeparatorField | GroupField | TabsField;
 
 export type FieldsType =
+	| GetRegisterType<'FieldsType'>
 	| 'blocks'
 	| 'checkbox'
 	| 'combobox'

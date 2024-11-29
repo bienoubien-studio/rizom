@@ -60,6 +60,7 @@ const parseStringValue = (key: string, value: string): string => {
 };
 
 const parseValue = (key: string, value: any): string | boolean | number => {
+	if (key === 'templates') return '{}';
 	if (Array.isArray(value)) return parseArray(value);
 	if (typeof value === 'function') return parseFunctionValue(value);
 	if (typeof value === 'object') return parseObjectValue(key, value);

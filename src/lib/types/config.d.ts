@@ -146,6 +146,7 @@ export type BuiltConfig = {
 		access: (user: User) => boolean;
 	};
 	smtp?: SMTPConfig;
+	fieldsMap: Record<string, any>;
 };
 
 export type BrowserConfig = Omit<BuiltConfig, 'panel' | 'cors' | 'smtp' | 'routes'>;
