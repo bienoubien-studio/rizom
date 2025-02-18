@@ -37,6 +37,10 @@ class EmailFieldBuilder extends FormFieldBuilder<EmailField> {
 		this.field.isTitle = true;
 		return this;
 	}
+	layout(layout: 'compact' | 'default') {
+		this.field.layout = layout;
+		return this;
+	}
 }
 
 export const email = (name: string) => new EmailFieldBuilder(name);
@@ -48,6 +52,7 @@ export type EmailField = FormField & {
 	type: 'email';
 	defaultValue?: string;
 	unique?: boolean;
+	layout: 'compact' | 'default';
 	isTitle?: true;
 };
 

@@ -3,6 +3,7 @@
 	import { Field } from 'rizom/panel';
 	import type { EmailFieldProps } from './props';
 	import { capitalize } from 'rizom/utils/string';
+	import './email.css';
 
 	const { path, config, form }: EmailFieldProps = $props();
 
@@ -18,9 +19,12 @@
 	const onBlur = () => {
 		showError = true;
 	};
+
+	const classNameCompact = config.layout === 'compact' ? 'rz-email-field--compact' : '';
+	const classNames = `${config.className} ${classNameCompact || ''}`;
 </script>
 
-<Field.Root class={config.className} visible={field.visible} disabled={!field.editable}>
+<Field.Root class="rz-email-field {classNames}" visible={field.visible} disabled={!field.editable}>
 	<Field.Label {config} />
 	<Input
 		id={path || config.name}

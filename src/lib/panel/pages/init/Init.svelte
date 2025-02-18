@@ -10,6 +10,8 @@
 	import type { FormErrors } from 'rizom/types';
 	import { text } from 'rizom/fields';
 	import { usersFields } from 'rizom/collection/auth/usersFields';
+	import { t__ } from 'rizom/panel/i18n';
+	import Pattern from 'rizom/panel/components/areas/illustration/Pattern.svelte';
 
 	type Props = { form?: { email?: string; password?: string; errors?: FormErrors } };
 	let { form }: Props = $props();
@@ -24,33 +26,61 @@
 </script>
 
 <Toaster />
-<div class="rz-init-container">
+<div class="rz-init">
+	<Pattern />
 	<form method="POST" use:enhance={context.enhance}>
-		<Card.Root>
-			<Card.Header>
-				<Card.Title>Create the first admin user</Card.Title>
-			</Card.Header>
-			<Card.Content>
-				<Text config={text('name').required().toField()} form={context} />
-				<Email config={usersFields.email.toField()} form={context} />
-				<Text type="password" config={usersFields.password.toField()} form={context} />
-			</Card.Content>
-			<Card.Footer>
-				<Button type="submit" size="lg">Create</Button>
-			</Card.Footer>
-		</Card.Root>
+		<h1>{t__('common.init')}</h1>
+		<p>{t__('common.init_description')}</p>
+		<Text config={text('name').layout('compact').required().toField()} form={context} />
+		<Email config={usersFields.email.layout('compact').toField()} form={context} />
+		<Text
+			type="password"
+			config={usersFields.password.layout('compact').toField()}
+			form={context}
+		/>
+
+		<Button size="xl" disabled={!context.canSubmit} type="submit">Create</Button>
 	</form>
 </div>
 
 <style type="postcs">
-	.rz-init-container {
-		--rz-card-width: var(--rz-size-96);
+	.rz-init {
 		display: grid;
-		place-content: center;
+		grid-template-columns: 1fr;
+		@media (min-width: 768px) {
+			grid-template-columns: 0.8fr 1.2fr;
+		}
 		height: 100vh;
 		width: 100vw;
-		& :global(.rz-card-footer) {
-			display: grid;
+		background-color: hsl(var(--rz-ground-7));
+		form {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			width: min(500px, 90%);
+			gap: var(--rz-size-4);
+			margin-bottom: 10vh;
+			padding: var(--rz-size-20);
+			border-left: var(--rz-border);
+			h1 {
+				font-size: var(--rz-text-6xl);
+				@mixin font-semibold;
+			}
+			p {
+				font-size: var(--rz-text-xl);
+				color: hsl(var(--rz-ground-2));
+			}
+			:global(fieldset label) {
+				display: none;
+			}
+			:global(fieldset .rz-field-error) {
+				top: calc(-1 * var(--rz-size-6));
+			}
+			:global(fieldset input) {
+				font-size: var(--rz-text-md);
+				padding: 0 var(--rz-size-5);
+				height: var(--rz-size-14);
+			}
 		}
 	}
 </style>

@@ -1,6 +1,8 @@
 export default {
 	save: 'Save',
 	signin: 'Sign In',
+	init: 'Init',
+	init_description: 'Create the first panel user',
 	create_first: 'Create your first $1',
 	create_new: 'Create new $1',
 	view_site: 'View website',

@@ -11,6 +11,7 @@
 	import { t__ } from 'rizom/panel/i18n/index.js';
 	import { Toaster } from 'rizom/panel/components/ui/sonner';
 	import { toast } from 'svelte-sonner';
+	import Pattern from 'rizom/panel/components/areas/illustration/Pattern.svelte';
 
 	type Props = {
 		forgotPasswordLink?: boolean;
@@ -30,14 +31,14 @@
 
 <Toaster />
 <div class="rz-login">
-	<div class="gradient"></div>
+	<Pattern />
 	<form method="POST" action="/login" use:enhance={context.enhance}>
 		<!-- <form onsubmit={handleSignIn}> -->
 		<h1>{t__('common.signin')}</h1>
 		<Email config={usersFields.email.toField()} form={context} />
 		<Text
 			type="password"
-			config={text('password').label(t__('fields.password')).required().toField()}
+			config={text('password').label(t__('fields.password')).layout('compact').required().toField()}
 			form={context}
 		/>
 
@@ -83,9 +84,6 @@
 				padding: 0 var(--rz-size-5);
 				height: var(--rz-size-14);
 			}
-		}
-		:global(.rz-login__form-error) {
-			color: hsl(var(--rz-color-error));
 		}
 	}
 
